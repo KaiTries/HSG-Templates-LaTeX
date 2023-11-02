@@ -1,9 +1,59 @@
-\documentclass[a4paper,11pt,bibliography=totoc,numbers=noenddot]{scrartcl}
+\documentclass[a4paper,11pt,bibliography=totoc,numbers=noenddot]{scrartcl}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage[english]{babel}
 \usepackage{amsmath,amssymb}
 \usepackage{enumerate}
 \usepackage{blindtext}
 \usepackage{listings}
+\usepackage{dejavu}
 %\usepackage{xcolor} % knitr automatically adds this
 \usepackage{graphicx}
 \usepackage{float}
@@ -52,6 +102,7 @@
 \usepackage{tocloft}
 %\setlength\cftaftertoctitleskip{30pt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
 % Front page:
@@ -87,34 +138,77 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load relevant things into R's memory, such as functions, data and packages %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-<<prepare,results='hide',message=FALSE,warning=FALSE,echo=FALSE>>=
-source(file = "Code/functions.R")
-# makes it possible to install packages from github:
-if (!require("devtools")){
-  install.packages("devtools")
-  library(devtools)
-}
-# installs my package from github to make life easier:
-if (!require("tinotools")){
-  devtools::install_github("tinino/tinotools")
-}
-LoadOrInstall(packages.required = c("devtools", "stargazer")) # loads all packages required
-@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Introduction:
-<<Introduction,child='Sections/Introduction.Rnw'>>=
-@
+
+\newpage
+\pagenumbering{arabic}
+\section{Introduction}
+\label{sec:Introduction}
+\blindtext
 
 % Data:
-<<Data,child='Sections/Data.Rnw'>>=
-@
+
+\newpage
+\section{Data}
+\label{sec:Data}
+\blindtext[1]
+
+Useful package: \texttt{stargazer} produced \vref{tab:summarystats} \cite{stargazer}. One can see that the mean of sepal length is 5.8433333. You can install required packages on the fly, using the function shown in \vref{app:code}.
+\subsection{Summary Statistics}
+\label{sub:Stats}
+\blindtext
+
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Fre, Aug 05, 2016 - 09:59:03
+% Requires LaTeX packages: dcolumn 
+\begin{table}[!htbp] \centering 
+  \caption{Summary statistics of the iris database} 
+  \label{tab:summarystats} 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+\hline \\[-1.8ex] 
+Sepal.Length & 150 & 5.843 & 0.828 & 4.300 & 7.900 \\ 
+Sepal.Width & 150 & 3.057 & 0.436 & 2.000 & 4.400 \\ 
+Petal.Length & 150 & 3.758 & 1.765 & 1.000 & 6.900 \\ 
+Petal.Width & 150 & 1.199 & 0.762 & 0.100 & 2.500 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+\blindtext[3]
+
+\subsection{Further Statistics}
+\blindtext
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+
+{\centering \includegraphics[width=\maxwidth]{figure/boxplots-1} 
+
+}
+
+\caption[Boxplots of the iris data for all three species]{Boxplots of the iris data for all three species}\label{fig:boxplots}
+\end{figure}
+
+
+\end{knitrout}
+\blindtext[4]
+
+For the boxplots, see \vref{fig:boxplots}.
 
 
 % Conclusion:
-<<Conclusion,child='Sections/Conclusion.Rnw'>>=
-@
+
+\newpage
+\section{Conclusion}
+\label{sec:Conclusion}
+
+\blindtext[4]
 
 % References
 \newpage
@@ -135,7 +229,7 @@ LoadOrInstall(packages.required = c("devtools", "stargazer")) # loads all packag
 \newpage
 \section{\R-Code}
 \label{app:code}
-\lstinputlisting[nolol=true,basicstyle=\scriptsize\tt,breaklines=true]{Code/functions.R}
+\lstinputlisting[nolol=true,basicstyle=\scriptsize\ttfamily,breaklines=false]{Code/Exercise6.py}
 \end{appendices}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
